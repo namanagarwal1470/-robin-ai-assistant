@@ -45,10 +45,8 @@ def wishme():
     elif(hour>=12 and hour<18):
         speak("good afternoon sir")
     elif(hour>=18 and hour<24):
-        speak("good evening sir")
-    else:
-        speak("good night sir")            
-
+        speak("good evening sir")            
+    speak("hello sir...")
     speak("what can i do for you !!")
 
 def opencam():
@@ -66,6 +64,12 @@ def wiki(query1):
     result=wikipedia.summary(query1,sentences=2)   
     speak(result)
     print(query)
+
+def log():
+    speak("loging out sir")
+    os.system("shutdown -l")
+
+
 
 
 def shut():
@@ -117,5 +121,7 @@ if __name__=="__main__":
             wiki(query)
         elif "screenshot" in query:
             screen()
+        elif "logout" in query:
+            log()
                     
 
