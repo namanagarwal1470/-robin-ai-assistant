@@ -4,6 +4,7 @@ import datetime as dt
 import cv2
 import subprocess
 import os
+import wikipedia
 
 engine=pyttsx3.init()
 def speak(audio):
@@ -50,6 +51,14 @@ def opencam():
         cv2.waitKey(1)
     cv2.destroyAllWindows()  
     cap.release()
+    
+def wiki(query1):
+    speak("searching in wikipedia..")
+    query1=query1.replace("wikipedia","")
+    result=wikipedia.summary(query1,sentences=2)   
+    speak(result)
+    print(query)
+    
 def shut():
     speak("computer going to sleep")
     os.system('shutdown /s /t 1') 
@@ -80,20 +89,21 @@ if __name__=="__main__":
         print(query)
         if "time" in query:
             time()
-        if "date" in query:
+        elif "date" in query:
             date()
-        if "camera" in query:
+        elif "camera" in query:
             opencam() 
-        if "offline" in query:
+        elif "offline" in query:
             speak("good bye sir")
             quit() 
-        if "notepad" in query:
+        elif "notepad" in query:
             note() 
-        if "shutdown" in query:
+        elif "shutdown" in query:
             shut()
-        if "restart" in query:
+        elif "restart" in query:
             restart()
-        if "wordpad" in query:
+        elif "wordpad" in query:
             wordpad()                         
-                    
+        elif "wikipedia" in query:
+            wiki(query)
 
