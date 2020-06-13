@@ -5,6 +5,7 @@ import cv2
 import subprocess
 import os
 import wikipedia
+import pyautogui
 
 engine=pyttsx3.init()
 def speak(audio):
@@ -18,9 +19,16 @@ def time():
 def note():
     speak("opening notepad")
     os.system(command="start notepad.exe")
+
 def wordpad():
     speak("opening wordpad")
-    os.system(command="start wordpad.exe")           
+    os.system(command="start wordpad.exe")
+
+def screen():
+    img=pyautogui.screenshot()
+    img.save("C:\\Users\\Naman\\Desktop\\image.png")
+    os.system(command="C:\\Users\\Naman\\Desktop\\image.png")
+
 
 def date():
     Date=dt.datetime.now().day
@@ -51,14 +59,15 @@ def opencam():
         cv2.waitKey(1)
     cv2.destroyAllWindows()  
     cap.release()
-    
+
 def wiki(query1):
     speak("searching in wikipedia..")
     query1=query1.replace("wikipedia","")
     result=wikipedia.summary(query1,sentences=2)   
     speak(result)
     print(query)
-    
+
+
 def shut():
     speak("computer going to sleep")
     os.system('shutdown /s /t 1') 
@@ -103,7 +112,10 @@ if __name__=="__main__":
         elif "restart" in query:
             restart()
         elif "wordpad" in query:
-            wordpad()                         
+            wordpad()
         elif "wikipedia" in query:
             wiki(query)
+        elif "screenshot" in query:
+            screen()
+                    
 
