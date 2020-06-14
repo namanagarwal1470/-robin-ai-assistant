@@ -4,11 +4,10 @@ import speech_recognition as sr
 import datetime as dt
 import cv2
 import subprocess
+import webbrowser as wb
 import os
 import wikipedia
 import pyautogui
-import pyjokes
-import psutil
 
 engine=pyttsx3.init()
 def speak(audio):
@@ -96,21 +95,45 @@ def restart():
     speak("restarting computer")
     os.system('shutdown /r /t 1')
 
+
 def cpu():
     usage=str(psutil.cpu_percent())
     speak('cpu is at'+usage)  
     battery=psutil.sensors_battery()
     speak("battery is at")
-    speak(battery.percent)          
+    speak(battery.percent) 
+
+def google():
+    speak("what should i search sir in google")
+    chromepath='C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
+    search=takecommand().lower()
+    print(search)
+    search=search.replace('/',' ')
+    if search!="none":
+        speak("opening "+search)
+        wb.get(chromepath).open_new_tab(search)
+    else:
+        google() 
+
+def remember1():
+    speak("what should i remember")
+    data=takecommand().lower()
+    if data!="none":
+        remember=open('data.txt','w')
+        remember.write(data)
+        remember.close()
+        speak("remembered sir")
+    else:
+        remember1()                             
 
 def takecommand():
     r=sr.Recognizer()
     with sr.Microphone() as source:
         r.adjust_for_ambient_noise(source,duration=0.5)
-        print('listening....')
+        speak('listening')
         audio=r.listen(source)
     try:
-        print('recognizing...')
+        print('recognizing')
         query=r.recognize_google(audio,language="en-us")
         
     except Exception as e:
@@ -160,6 +183,16 @@ if __name__=="__main__":
         elif "jokes" in query:
             jokes() 
         elif "cpu" in query:
-            cpu()              
+            cpu()
+        elif "google" in query:
+            google()
+
+        elif "remember" in query:
+            remember1()
+
+        elif "know" in query:
+            remember=open('data.txt','r')
+            speak(remember.read())        
+
             
                     
