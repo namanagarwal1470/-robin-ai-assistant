@@ -46,7 +46,8 @@ def wishme():
         speak("good afternoon sir")
     elif(hour>=18 and hour<24):
         speak("good evening sir")            
-    speak("hello sir...")
+    else:
+        speak('hello sir')
     speak("what can i do for you !!")
 
 def opencam():
@@ -69,12 +70,19 @@ def log():
     speak("loging out sir")
     os.system("shutdown -l")
 
+def start():
+    pyautogui.keyDown('winleft')
+    pyautogui.keyUp('winleft')
 
+def caps():
+    pyautogui.keyDown('capslock')
+    pyautogui.keyUp('capslock')
 
 
 def shut():
     speak("computer going to sleep")
     os.system('shutdown /s /t 1') 
+
 def restart():
     speak("restarting computer")
     os.system('shutdown /r /t 1')        
@@ -82,12 +90,11 @@ def restart():
 def takecommand():
     r=sr.Recognizer()
     with sr.Microphone() as source:
-        speak("listening.....")
-        r.pause_threshold=1
+        print('listening....')
         audio=r.listen(source)
     try:
-        speak("recognizing sir...")
-        query=r.recognize_google(audio,language="en-in")
+        print('recognizing...')
+        query=r.recognize_google(audio,language="en-us")
         
     except Exception as e:
         return "None"
@@ -106,7 +113,7 @@ if __name__=="__main__":
             date()
         elif "camera" in query:
             opencam() 
-        elif "offline" in query:
+        elif "sleep" in query:
             speak("good bye sir")
             quit() 
         elif "notepad" in query:
@@ -123,5 +130,12 @@ if __name__=="__main__":
             screen()
         elif "logout" in query:
             log()
+        elif "windows" in query:
+            start() 
+        elif "lock" in query:
+            caps() 
+        elif "thank" in query:
+            speak("its ok sir")          
+            
                     
 
