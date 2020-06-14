@@ -1,3 +1,4 @@
+
 import pyttsx3
 import speech_recognition as sr
 import datetime as dt
@@ -6,6 +7,8 @@ import subprocess
 import os
 import wikipedia
 import pyautogui
+import pyjokes
+import psutil
 
 engine=pyttsx3.init()
 def speak(audio):
@@ -81,6 +84,9 @@ def caps():
     pyautogui.keyDown('capslock')
     pyautogui.keyUp('capslock')
 
+def jokes():
+    speak(pyjokes.get_joke())    
+
 
 def shut():
     speak("computer going to sleep")
@@ -88,11 +94,19 @@ def shut():
 
 def restart():
     speak("restarting computer")
-    os.system('shutdown /r /t 1')        
+    os.system('shutdown /r /t 1')
+
+def cpu():
+    usage=str(psutil.cpu_percent())
+    speak('cpu is at'+usage)  
+    battery=psutil.sensors_battery()
+    speak("battery is at")
+    speak(battery.percent)          
 
 def takecommand():
     r=sr.Recognizer()
     with sr.Microphone() as source:
+        r.adjust_for_ambient_noise(source,duration=0.5)
         print('listening....')
         audio=r.listen(source)
     try:
@@ -141,3 +155,11 @@ if __name__=="__main__":
             speak("its ok sir")
         elif "code" in query:
             startcode()
+        elif "firefox" in query:
+            os.system(command="start firefox.exe") 
+        elif "jokes" in query:
+            jokes() 
+        elif "cpu" in query:
+            cpu()              
+            
+                    
