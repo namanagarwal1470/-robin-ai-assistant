@@ -141,8 +141,3 @@ if __name__=="__main__":
             speak("its ok sir")
         elif "code" in query:
             startcode()
-        elif "cmd" or "command prompt" in query:
-            os.system(command="cmd")
-            
-                    
-
