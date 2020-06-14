@@ -12,6 +12,9 @@ def speak(audio):
     engine.say(audio)
     engine.runAndWait()
 
+def startcode():
+    os.system(command="code")
+    
 def time():
     Time=dt.datetime.now().strftime("%I:%M:%S")
     speak(Time)
@@ -135,7 +138,9 @@ if __name__=="__main__":
         elif "lock" in query:
             caps() 
         elif "thank" in query:
-            speak("its ok sir")          
+            speak("its ok sir")
+        elif "code" in query:
+            startcode()
             
                     
 
