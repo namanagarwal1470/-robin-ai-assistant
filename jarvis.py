@@ -147,15 +147,42 @@ if __name__=="__main__":
     while True:
         query=takecommand().lower()
         print(query)
+        '''
+            myDict = {
+                "time":time,
+                "date":date,
+                "camera":opencam,
+                "notepad":note,
+                "shutdown":shut,
+                "restart":restart,
+                "wordpad":wordpad,
+                "screenshot":screen,
+                "logout":log,
+                "windows":start,
+                "lock":caps
+                "code":startcode,
+                "jokes":jokes,
+                "cpu":cpu,
+                "google":google,
+                "remember":remember1
+            }
+            for i in myDict.keys():
+                if i in query:
+                    myDict[i]()
+                
+        '''
+        
         if "time" in query:
             time()
         elif "date" in query:
             date()
         elif "camera" in query:
             opencam() 
+        ####
         elif "sleep" in query:
             speak("good bye sir")
             quit() 
+        ####
         elif "notepad" in query:
             note() 
         elif "shutdown" in query:
@@ -164,8 +191,10 @@ if __name__=="__main__":
             restart()
         elif "wordpad" in query:
             wordpad()
+        #####
         elif "wikipedia" in query:
             wiki(query)
+        #####
         elif "screenshot" in query:
             screen()
         elif "logout" in query:
@@ -189,10 +218,10 @@ if __name__=="__main__":
 
         elif "remember" in query:
             remember1()
-
+###
         elif "know" in query:
             remember=open('data.txt','r')
             speak(remember.read())        
-
+###
             
                     
