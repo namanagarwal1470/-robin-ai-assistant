@@ -171,8 +171,12 @@ if __name__=="__main__":
     while True:
         query=takecommand().lower()
         print(query)
-        l=["time","date","camera","sleep","notepad","shutdown","restart","wordpad","wikipedia","screenshot","logout","windows","lock","thank","code","chrome","jokes","cpu","google","remember","know","calculate"]
-        query1=difflib.get_close_matches(query,l,n=1)
+        l = [
+            "time","date","camera","sleep","notepad","shutdown","restart",
+            "wordpad","wikipedia","screenshot","logout","windows","lock","thank",
+            "code","chrome","jokes","cpu","google","remember","know","calculate"
+        ]
+        query1=difflib.get_close_matches(query,l,n=1,cutoff=0)
         query1="".join(query1)
         if query1 in l:
             query=query1
