@@ -11,15 +11,6 @@ import pyautogui
 import difflib
 import psutil
 
-operator = {
-    "plus": "+",
-    "minus": "-",
-    "multiply":"*",
-    "divide": "/",
-    "multiplied by": "*",
-    "divided by": "/",
-}
-
 engine=pyttsx3.init()
 def speak(audio):
     engine.say(audio)
