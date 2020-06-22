@@ -1,4 +1,4 @@
-
+import scrape
 import pyttsx3
 import speech_recognition as sr
 import datetime as dt
@@ -10,6 +10,7 @@ import wikipedia
 import pyautogui
 import difflib
 import psutil
+
 
 engine=pyttsx3.init()
 def speak(audio):
@@ -131,9 +132,7 @@ def remember1():
 def calculate():
     speak("say an expression")
     query=takecommand()
-
-    if "who" in query:
-        query = query.replace("who", "2")
+    print(query)
 
     if "divided by" in query:
         query = query.replace("divided by", "/")
@@ -142,12 +141,30 @@ def calculate():
         query = query.replace("x","*")
     try: 
         x = eval(query)
+        print(x)
     except Exception as e:
         speak("Err occured")
-        x = None
-    if str(x) != "None":
+        calculate()
+
+    if str(x) !="none":
+        speak("Your expression is", query)
         speak("your answer is "  + str(x))
         print("your answer is "  + str(x))
+
+def weatherw():
+    speak("Speak Postal code")
+    p=takecommand().lower().replace(" ", '')
+    if len(p) != 6 or p == 'none':
+        print(p)
+        speak("invalid postal code please speak again")
+        weatherw()
+        
+    elif p!="none":
+        weatherDict = scrape.weather(p)
+        for i in weatherDict.keys():
+            speak(str(i) + str(weatherDict[i]))
+
+
 
 
 def takecommand():
@@ -161,20 +178,22 @@ def takecommand():
         query=r.recognize_google(audio,language="en-us")
         
     except Exception as e:
-        return "None"
+        return "none"
       
 
     return query
        
 if __name__=="__main__":
     wishme()
+    
     while True:
         query=takecommand().lower()
         print(query)
         l = [
-            "time","date","camera","sleep","notepad","shutdown","restart",
+            "time","date","camera","sleep","restart",
             "wordpad","wikipedia","screenshot","logout","windows","lock","thank",
-            "code","chrome","jokes","cpu","google","remember","know","calculate"
+            "code","chrome","jokes","cpu","google","remember","know","calculate",
+            "calculator"
         ]
         query1=difflib.get_close_matches(query,l,n=1)
         query1="".join(query1)
@@ -231,7 +250,12 @@ if __name__=="__main__":
             speak(remember.read())
 
         elif "calculate" in query:
-            calculate()             
+            calculate() 
+
+        elif "weather" in query:
+           weatherw()     
+        elif "calculator" in query:
+            os.system(command="calc")   
 
             
                     
